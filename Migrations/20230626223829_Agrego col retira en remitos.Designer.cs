@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using back_bitadora.Context;
 
@@ -10,9 +11,10 @@ using back_bitadora.Context;
 namespace backEndBitacora.Migrations
 {
     [DbContext(typeof(ListadoDeRemitosContext))]
-    partial class ListadoDeRemitosContextModelSnapshot : ModelSnapshot
+    [Migration("20230626223829_Agrego col retira en remitos")]
+    partial class Agregocolretiraenremitos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.5");
@@ -41,9 +43,6 @@ namespace backEndBitacora.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("E4")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("E4T")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("GPS")
