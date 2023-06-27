@@ -38,6 +38,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// Activo el CORS
+app.UseCors("AllowCredentials");
+
 app.UseAuthorization();
 
 app.MapControllers();
