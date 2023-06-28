@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using back_bitadora.Context;
 
@@ -10,9 +11,10 @@ using back_bitadora.Context;
 namespace backEndBitacora.Migrations
 {
     [DbContext(typeof(ListadoDeRemitosContext))]
-    partial class ListadoDeRemitosContextModelSnapshot : ModelSnapshot
+    [Migration("20230628030358_arreglo de cambio de tipo de datos")]
+    partial class arreglodecambiodetipodedatos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.5");

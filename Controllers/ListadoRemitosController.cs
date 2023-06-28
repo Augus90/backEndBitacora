@@ -29,6 +29,8 @@ namespace back_bitadora.Controllers
         public IActionResult addAgencia([FromBody] Remitos nuevoRemito){
 
             var result = _remitoService.CrearRemito( nuevoRemito );
+            // var result = nuevoRemito.Length;
+            Console.WriteLine("--------------------" + nuevoRemito.agencia + "--------------------");
 
             if(result > 0){
                 return StatusCode(201);

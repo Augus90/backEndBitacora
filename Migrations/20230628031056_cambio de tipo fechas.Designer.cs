@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using back_bitadora.Context;
 
@@ -10,9 +11,10 @@ using back_bitadora.Context;
 namespace backEndBitacora.Migrations
 {
     [DbContext(typeof(ListadoDeRemitosContext))]
-    partial class ListadoDeRemitosContextModelSnapshot : ModelSnapshot
+    [Migration("20230628031056_cambio de tipo fechas")]
+    partial class cambiodetipofechas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.5");
@@ -67,11 +69,11 @@ namespace backEndBitacora.Migrations
                     b.Property<string>("agencia")
                         .HasColumnType("TEXT");
 
-                    b.Property<double?>("compromisedAt")
-                        .HasColumnType("REAL");
+                    b.Property<DateOnly?>("compromisedAt")
+                        .HasColumnType("TEXT");
 
-                    b.Property<double?>("createdAt")
-                        .HasColumnType("REAL");
+                    b.Property<DateOnly?>("createdAt")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("detalle")
                         .HasColumnType("TEXT");
@@ -82,8 +84,8 @@ namespace backEndBitacora.Migrations
                     b.Property<int>("numero")
                         .HasColumnType("INTEGER");
 
-                    b.Property<double?>("recivedAt")
-                        .HasColumnType("REAL");
+                    b.Property<DateOnly?>("recivedAt")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("retira")
                         .HasColumnType("TEXT");

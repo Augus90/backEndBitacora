@@ -15,10 +15,11 @@ namespace back_bitadora.Models
         public int Tx860 { get; set; }
         public int Tx700 { get; set; }
         public int Tx840 { get; set; }
+        public int MRD { get; set; }
         public string? accesorios { get; set; }
-        public string? createdAt { get; set; }
-        public string? recivedAt { get; set; }
-        public string? compromisedAt { get; set; }
+        public double? createdAt { get; set; }
+        public double? recivedAt { get; set; }
+        public double? compromisedAt { get; set; }
         public string? estado { get; set; }
         public string? agencia { get; set; }
         public string? detalle { get; set; }
