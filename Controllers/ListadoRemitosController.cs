@@ -39,6 +39,20 @@ namespace back_bitadora.Controllers
             }
         }
 
+        [HttpPut]
+        public IActionResult editRemito([FromBody] Remitos nuevoRemito){
+
+            var result = _remitoService.EditarRemito(1, nuevoRemito );
+            // var result = nuevoRemito.Length;
+            Console.WriteLine("--------------------" + nuevoRemito.agencia + "--------------------");
+
+            if(result > 0){
+                return StatusCode(201);
+            }else{
+                return StatusCode(400);
+            }
+        }
+
         [HttpDelete("{id}")]
         public IActionResult deleteRemito(int id){
 
