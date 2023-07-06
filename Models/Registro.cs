@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace back_bitadora.Models
 {
-    public class Remitos
+    public class Registro
     {
         public long Id { get; set; }
         public int numero { get; set; }
@@ -20,9 +20,11 @@ namespace back_bitadora.Models
         public string? createdAt { get; set; }
         public string? recivedAt { get; set; }
         public string? compromisedAt { get; set; }
+        public string? completedAt { get; set; }
         public string? estado { get; set; }
         public string? agencia { get; set; }
         public string? detalle { get; set; }
         public string? retira { get; set; }
+        public bool active {get; set;}
     }
 }

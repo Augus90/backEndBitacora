@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using back_bitadora.Context;
 
@@ -10,9 +11,10 @@ using back_bitadora.Context;
 namespace backEndBitacora.Migrations
 {
     [DbContext(typeof(ListadoDeRemitosContext))]
-    partial class ListadoDeRemitosContextModelSnapshot : ModelSnapshot
+    [Migration("20230705223455_Agrego la tabla de Registro y al contexto")]
+    partial class AgregolatabladeRegistroyalcontexto
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.5");
@@ -96,7 +98,7 @@ namespace backEndBitacora.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Registros");
+                    b.ToTable("Registro");
                 });
 
             modelBuilder.Entity("back_bitadora.Models.Remitos", b =>

@@ -19,6 +19,7 @@ builder.Services.AddDbContext<ListadoDeRemitosContext>( options =>
 
 builder.Services.AddScoped<IAgenciaService, AgenciaServices>();
 builder.Services.AddScoped<IRemitoService, RemitoServices>();
+builder.Services.AddScoped<IRegistroService, RegistroServices>();
 
 // Configuro el CORS para aceptar todas las conexiones
 builder.Services.AddCors(options => {

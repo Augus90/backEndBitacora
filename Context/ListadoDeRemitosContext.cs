@@ -21,6 +21,7 @@ namespace back_bitadora.Context
 
         public virtual DbSet<Agencias> Agencias { get; set; } = null!;
         public virtual DbSet<Remitos> Remitos { get; set; } = null!;       
+        public virtual DbSet<Registro> Registros { get; set; } = null!;       
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder){}
     }
