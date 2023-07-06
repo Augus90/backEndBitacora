@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using back_bitadora.Context;
 
@@ -10,9 +11,10 @@ using back_bitadora.Context;
 namespace backEndBitacora.Migrations
 {
     [DbContext(typeof(ListadoDeRemitosContext))]
-    partial class ListadoDeRemitosContextModelSnapshot : ModelSnapshot
+    [Migration("20230706203014_numero de remito admite nulos")]
+    partial class numeroderemitoadmitenulos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.5");

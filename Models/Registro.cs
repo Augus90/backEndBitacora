@@ -8,7 +8,7 @@ namespace back_bitadora.Models
     public class Registro
     {
         public long Id { get; set; }
-        public int numero { get; set; }
+        public int? numero { get; set; }
         public int E4 { get; set; }
         public int E4T { get; set; }
         public int GPS { get; set; }
