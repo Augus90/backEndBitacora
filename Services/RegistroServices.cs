@@ -9,7 +9,8 @@ namespace back_bitadora.Services
 {
     public interface IRegistroService{
         IEnumerable<Registro> getListaCompletaRegistros();
-        IEnumerable<Registro> getListaCompaginada(float resultadosPorPagina, int pagina);
+        RegistroResponse getListaCompaginada(float resultadosPorPagina, int pagina);
+        IEnumerable<Registro> getListaCompaginada2(float resultadosPorPagina, int pagina);
         double getTotalDePaginas(float resultadosPorPagina);
         int addRegistroALaLista(Registro registro);
         int deleteRegistro(Registro registro);
@@ -35,13 +36,39 @@ namespace back_bitadora.Services
             return _context.SaveChanges();
         }
 
-        public IEnumerable<Registro> getListaCompaginada(float resultadosPorPagina, int pagina)
+        public RegistroResponse getListaCompaginada(float resultadosPorPagina, int pagina)
+        {
+            var registrosPaginados = _context.Registros
+                .OrderByDescending(r => r.Id)
+                .Skip((pagina - 1) * (int)resultadosPorPagina)
+                .Take((int) resultadosPorPagina)
+                .ToList();
+
+            // var response = registrosPaginados;
+
+            var response = new RegistroResponse{
+                pageNumber = pagina,
+                PageMax = getTotalDePaginas(resultadosPorPagina),
+                Registros = registrosPaginados,
+            };
+            return response;
+        }
+
+        public IEnumerable<Registro> getListaCompaginada2(float resultadosPorPagina, int pagina)
         {
             var registrosPaginados = _context.Registros
                 .Skip((pagina - 1) * (int)resultadosPorPagina)
                 .Take((int) resultadosPorPagina)
                 .ToList();
-            return registrosPaginados;
+
+            var response = registrosPaginados;
+
+            // var response = new RegistroResponse{
+            //     pageNumber = pagina,
+            //     PageMax = getTotalDePaginas(resultadosPorPagina),
+            //     Registros = registrosPaginados,
+            // };
+            return response;
         }
 
         public double getTotalDePaginas(float resultadosPorPagina){
@@ -51,7 +78,9 @@ namespace back_bitadora.Services
 
         public IEnumerable<Registro> getListaCompletaRegistros()
         {
-            return _context.Registros.Where(r => r.active == true).ToList();
+            return _context.Registros
+                .Where(r => r.active == true)
+                .ToList();
         }
     }
 }
