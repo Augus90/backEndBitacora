@@ -13,7 +13,7 @@ namespace back_bitadora.Services
         IEnumerable<Remitos> ListarTodos();
         int CrearRemito(Remitos remito);
         int EliminarRemito(int idABorrar);
-        int EditarRemito(int idAEditar, Remitos remito);
+        int EditarRemito(Remitos remito);
     }
 
     public class RemitoServices : IRemitoService
@@ -49,7 +49,7 @@ namespace back_bitadora.Services
             return _context.SaveChanges();
         }
 
-        public int EditarRemito(int idAEditar, Remitos remito){
+        public int EditarRemito(Remitos remito){
             // if(_context.Remitos.Any(r => r.Id == idAEditar)){
             //     var remitoAEditar = _context.Remitos.Update(remito);
             //     _context.SaveChanges();

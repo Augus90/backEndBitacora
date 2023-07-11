@@ -1,3 +1,4 @@
+using System.Net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,34 @@ namespace backEndBitacora.Controllers
             var response = _registroService.getListaCompaginada(CANTIDAD_DE_REMITOS_POR_PAGINA, pagina);
             
             return Ok(response);
+        }
+
+        [HttpPost]
+        public IActionResult saveRemitoAlRegistro([FromBody]Remitos remito){
+            
+            if(remito == null){
+                return BadRequest();
+            }
+
+            var result = _registroService.addRemitoAlRegistro(remito);
+
+            if(result < 0){
+                return BadRequest();
+            }
+
+            return Ok(result);
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult<Remitos> deleteRegistro(int id){
+            var registroBorrado = _registroService.deleteRegistro(id);
+            var respuesta = new Remitos(registroBorrado);
+
+            if(registroBorrado.Id != 0){ 
+                return Ok(respuesta);
+            }else{
+                return BadRequest();
+            }
         }
     }
 }

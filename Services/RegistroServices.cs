@@ -13,7 +13,8 @@ namespace back_bitadora.Services
         IEnumerable<Registro> getListaCompaginada2(float resultadosPorPagina, int pagina);
         double getTotalDePaginas(float resultadosPorPagina);
         int addRegistroALaLista(Registro registro);
-        int deleteRegistro(Registro registro);
+        Registro deleteRegistro(int id);
+        int addRemitoAlRegistro(Remitos remito);
     }
 
     public class RegistroServices : IRegistroService
@@ -30,15 +31,24 @@ namespace back_bitadora.Services
             return _context.SaveChanges();
         }
 
-        public int deleteRegistro(Registro registro)
+        public Registro deleteRegistro(int id)
         {
-            _context.Registros.Where( r => r.Id == registro.Id).First().active = false;
-            return _context.SaveChanges();
+            var registroBorrado = _context.Registros.Where( r => r.Id == id).First();
+            registroBorrado.active = false;
+            registroBorrado.estado = "BORRADO";
+
+            var registroDeCambio = _context.SaveChanges();
+            if(registroDeCambio >= 0){
+                return registroBorrado;
+            }else{
+                return new Registro();
+            }
         }
 
         public RegistroResponse getListaCompaginada(float resultadosPorPagina, int pagina)
         {
             var registrosPaginados = _context.Registros
+                .Where(registro => registro.active == true)
                 .OrderByDescending(r => r.Id)
                 .Skip((pagina - 1) * (int)resultadosPorPagina)
                 .Take((int) resultadosPorPagina)
@@ -81,6 +91,13 @@ namespace back_bitadora.Services
             return _context.Registros
                 .Where(r => r.active == true)
                 .ToList();
+        }
+
+        public int addRemitoAlRegistro(Remitos remito)
+        {
+            var nuevoRegistro = new Registro(remito);
+
+            return addRegistroALaLista(nuevoRegistro);
         }
     }
 }

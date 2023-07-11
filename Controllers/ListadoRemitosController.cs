@@ -42,7 +42,7 @@ namespace back_bitadora.Controllers
         [HttpPut]
         public IActionResult editRemito([FromBody] Remitos nuevoRemito){
 
-            var result = _remitoService.EditarRemito(1, nuevoRemito );
+            var result = _remitoService.EditarRemito(nuevoRemito );
             // var result = nuevoRemito.Length;
             Console.WriteLine("--------------------" + nuevoRemito.agencia + "--------------------");
 

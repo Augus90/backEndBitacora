@@ -7,6 +7,30 @@ namespace back_bitadora.Models
 {
     public class Remitos
     {
+        public Remitos(){
+      
+        }
+        public Remitos(Registro remito){
+            this.numero = remito.numero;
+            this.E4 = remito.E4;
+            this.E4T = remito.E4T;
+            this.GPS = remito.GPS;
+            this.Tx860 = remito.Tx860;
+            this.Tx700 = remito.Tx700;
+            this.Tx840 = remito.Tx840;
+            this.MRD = remito.MRD;
+            this.createdAt = remito.createdAt;
+            this.recivedAt = remito.recivedAt;
+            this.compromisedAt = remito.compromisedAt;
+            this.detalle = remito.detalle;
+            this.agencia = remito.agencia;
+            this.accesorios = remito.accesorios; 
+            this.retira = remito.retira;
+            this.estado = "A DETERMINAR";
+        }
+
+
+
         public long Id { get; set; }
         public int? numero { get; set; }
         public int E4 { get; set; }
