@@ -11,10 +11,11 @@ namespace back_bitadora.Services
         IEnumerable<Registro> getListaCompletaRegistros();
         RegistroResponse getListaCompaginada(float resultadosPorPagina, int pagina);
         IEnumerable<Registro> getListaCompaginada2(float resultadosPorPagina, int pagina);
+        Registro? fetchRegistroById(long id);
         double getTotalDePaginas(float resultadosPorPagina);
         int addRegistroALaLista(Registro registro);
         Registro deleteRegistro(int id);
-        int addRemitoAlRegistro(Remitos remito);
+        int addRemitoALaListaRegistro(Remitos remito);
     }
 
     public class RegistroServices : IRegistroService
@@ -24,13 +25,6 @@ namespace back_bitadora.Services
         public RegistroServices(ListadoDeRemitosContext context) {
             _context = context;
         }
-
-        public int addRegistroALaLista(Registro registro)
-        {
-            _context.Registros.Add(registro);
-            return _context.SaveChanges();
-        }
-
         public Registro deleteRegistro(int id)
         {
             var registroBorrado = _context.Registros.Where( r => r.Id == id).First();
@@ -67,6 +61,7 @@ namespace back_bitadora.Services
         public IEnumerable<Registro> getListaCompaginada2(float resultadosPorPagina, int pagina)
         {
             var registrosPaginados = _context.Registros
+                .Where(registro => registro.active == true)
                 .Skip((pagina - 1) * (int)resultadosPorPagina)
                 .Take((int) resultadosPorPagina)
                 .ToList();
@@ -93,11 +88,24 @@ namespace back_bitadora.Services
                 .ToList();
         }
 
-        public int addRemitoAlRegistro(Remitos remito)
+        public int addRegistroALaLista(Registro registro)
+        {
+            var list = _context.Registros.Add(registro);
+            return _context.SaveChanges();
+
+        }
+
+        public int addRemitoALaListaRegistro(Remitos remito)
         {
             var nuevoRegistro = new Registro(remito);
 
             return addRegistroALaLista(nuevoRegistro);
+
+        }
+
+        public Registro? fetchRegistroById(long id)
+        {
+            return _context.Registros.Where(r => r.Id == id && r.active == true).FirstOrDefault();
         }
     }
 }

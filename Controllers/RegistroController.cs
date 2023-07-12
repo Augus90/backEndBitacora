@@ -17,13 +17,15 @@ namespace backEndBitacora.Controllers
         // private readonly  float CANTIDAD_DE_REMITOS_POR_PAGINA = 10f;
 
         private readonly IRegistroService _registroService;
-        public RegistroController(IRegistroService service){
+        private readonly IRemitoService _remitoService;
+        public RegistroController(IRegistroService service, IRemitoService remitoService){
             _registroService = service;
+            _remitoService = remitoService;
         }
 
         [HttpGet("{pagina}")]
-        public IActionResult getListaRegistroPaginado(int pagina, float CANTIDAD_DE_REMITOS_POR_PAGINA = 20f){
-            var response = _registroService.getListaCompaginada(CANTIDAD_DE_REMITOS_POR_PAGINA, pagina);
+        public IActionResult getListaRegistroPaginado(int pagina, [FromQuery(Name = "page-size")] float pageSize=20f){
+            var response = _registroService.getListaCompaginada(pageSize, pagina);
             
             return Ok(response);
         }
@@ -35,13 +37,13 @@ namespace backEndBitacora.Controllers
                 return BadRequest();
             }
 
-            var result = _registroService.addRemitoAlRegistro(remito);
+            var result = _registroService.addRemitoALaListaRegistro(remito);
 
-            if(result < 0){
+            if(result < 1){
                 return BadRequest();
             }
 
-            return Ok(result);
+            return Ok(); 
         }
 
         [HttpDelete("{id}")]
@@ -49,11 +51,19 @@ namespace backEndBitacora.Controllers
             var registroBorrado = _registroService.deleteRegistro(id);
             var respuesta = new Remitos(registroBorrado);
 
-            if(registroBorrado.Id != 0){ 
-                return Ok(respuesta);
-            }else{
+            if(registroBorrado.Id < 1){ 
                 return BadRequest();
             }
+             
+            respuesta.estado = "A DETERMINAR";
+
+            var remitoSeGuardado = _remitoService.CrearRemito(respuesta);
+
+            if(remitoSeGuardado < 1){
+                return BadRequest();
+            }
+
+            return Ok(respuesta);
         }
     }
 }
